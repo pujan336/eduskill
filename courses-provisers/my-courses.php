@@ -1,90 +1,50 @@
 <?php
-session_start();
-include "db.php";
 
-// Redirect if student not logged in
-if (!isset($_SESSION['student_id'])) {
-    header("Location: student-login.php");
-    exit();
+require_once '_provider_init.php';
+require_once '_provider_helpers.php';
+
+$course_rows = [];
+$res = mysqli_query($conn, 'SELECT * FROM courses WHERE provider_id=' . $provider_id . ' ORDER BY id DESC');
+if ($res) {
+    while ($row = mysqli_fetch_assoc($res)) {
+        $course_rows[] = $row;
+    }
 }
 
-$studentName = $_SESSION['student_name'];
+$provider_page_title = 'My submissions';
+$provider_nav = 'courses';
 
-// Fetch approved courses
-$courses = mysqli_query($conn, "SELECT courses.*, providers.fullname AS provider_name
-                                FROM courses
-                                JOIN providers ON courses.provider_id = providers.id
-                                WHERE courses.status='approved'
-                                ORDER BY courses.id DESC");
+include '_provider_layout_top.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>My Courses</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f4f4f4;
-        }
+<p style="margin:0 0 1.25rem;color:var(--ink-muted);line-height:1.55;max-width:42rem;">All courses you have submitted. Only <strong>approved</strong> courses can appear on the public catalog and be assigned to students by admins.</p>
 
-        header {
-            background: linear-gradient(135deg, #4b0082, #4caf50);
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-
-        .course-card {
-            background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .course-card h3 {
-            margin: 0 0 10px 0;
-            color: #4b0082;
-        }
-
-        .course-card p {
-            margin: 5px 0;
-        }
-    </style>
-</head>
-
-<body>
-
-    <header>
-        <h1>Welcome, <?php echo htmlspecialchars($studentName); ?></h1>
-    </header>
-
-    <div class="container">
-        <h2>Available Courses</h2>
-        <?php
-        if ($courses && mysqli_num_rows($courses) > 0) {
-            while ($row = mysqli_fetch_assoc($courses)) { ?>
-                <div class="course-card">
-                    <h3><?php echo htmlspecialchars($row['title']); ?></h3>
-                    <p><strong>Provider:</strong> <?php echo htmlspecialchars($row['provider_name']); ?></p>
-                    <p><?php echo htmlspecialchars($row['description']); ?></p>
-                </div>
-        <?php }
-        } else {
-            echo "<p>No courses available yet. Please check back later.</p>";
-        }
-        ?>
+<?php if (count($course_rows) > 0) : ?>
+    <div class="provider-table-wrap">
+        <table class="provider-data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($course_rows as $row) : ?>
+                    <tr>
+                        <td><?php echo (int) $row['id']; ?></td>
+                        <td><strong><?php echo htmlspecialchars((string) $row['title'], ENT_QUOTES, 'UTF-8'); ?></strong></td>
+                        <td class="cell-desc"><?php echo htmlspecialchars((string) $row['description'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><span class="provider-badge <?php echo provider_badge_class($row['status']); ?>"><?php echo htmlspecialchars(ucfirst((string) $row['status']), ENT_QUOTES, 'UTF-8'); ?></span></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
+<?php else : ?>
+    <div class="provider-empty">You have not submitted any courses. <a href="provider-dashboard.php" style="color:#4f46e5;font-weight:600;">Go to the dashboard</a> to create one.</div>
+<?php endif; ?>
 
-</body>
-
-</html>
+<?php
+include '_provider_layout_bottom.php';

@@ -31,7 +31,7 @@ if (isset($_SESSION['student_id'])) {
             <a class="student-hub-card student-hub-card--ghost" href="../index.php">EduSkill marketing site</a>
             <a class="student-hub-card" href="../admin/admin-login.php">Staff admin login</a>
         </div>
-        <p class="student-hub-note">Teachers and providers have their own portals. <a href="../courses-provisers/provider-login.php">Provider login</a></p>
+        <p class="student-hub-note">Teachers and providers have their own portals. <a href="../courses-provisers/index.php">Provider portal</a></p>
     </div>
 </body>
 

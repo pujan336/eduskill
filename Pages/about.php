@@ -24,7 +24,7 @@ require_once __DIR__ . '/../Components/navbar.php';
         </ul>
 
         <h2>For course providers</h2>
-        <p>If you teach professionally, use the <a href="<?php echo htmlspecialchars($ROOT); ?>courses-provisers/provider-login.php">provider portal</a> to manage offerings. Administrators review new submissions before they appear in the catalog.</p>
+        <p>If you teach professionally, use the <a href="<?php echo htmlspecialchars($ROOT); ?>courses-provisers/index.php">provider portal</a> to manage offerings. Administrators review new submissions before they appear in the catalog.</p>
 
         <p style="margin-top:1.5rem;"><a class="btn btn-primary" href="<?php echo htmlspecialchars($ROOT); ?>Pages/contact.php">Talk to us</a></p>
     </div>

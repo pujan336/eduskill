@@ -20,7 +20,7 @@ $nav = $nav_active ?? '';
             <a href="<?php echo htmlspecialchars($ROOT); ?>Pages/contact.php" <?php echo $nav === 'contact' ? 'aria-current="page"' : ''; ?>>Contact</a>
             <a href="<?php echo htmlspecialchars($ROOT); ?>Pages/faq.php" <?php echo $nav === 'faq' ? 'aria-current="page"' : ''; ?>>FAQ</a>
             <div class="nav-actions">
-                <a class="btn btn-ghost" href="<?php echo htmlspecialchars($ROOT); ?>courses-provisers/provider-login.php">Teach</a>
+                <a class="btn btn-ghost" href="<?php echo htmlspecialchars($ROOT); ?>courses-provisers/index.php">Teach</a>
                 <a class="btn btn-primary" href="<?php echo htmlspecialchars($ROOT); ?>registration-system/login.php">Log in</a>
                 <a class="btn btn-secondary" href="<?php echo htmlspecialchars($ROOT); ?>registration-system/register.php">Sign up</a>
             </div>

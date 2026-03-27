@@ -1,140 +1,74 @@
 <?php
 session_start();
-include "db.php";
+include 'db.php';
 
-$error = "";
+$error = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim((string) ($_POST['email'] ?? ''));
+    $password = (string) ($_POST['password'] ?? '');
 
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-
-    if (empty($email) || empty($password)) {
-        $error = "All fields are required!";
+    if ($email === '' || $password === '') {
+        $error = 'Please enter email and password.';
     } else {
-
-        $stmt = $conn->prepare(
-            "SELECT id, fullname, password FROM providers WHERE email=?"
-        );
-        $stmt->bind_param("s", $email);
+        $stmt = $conn->prepare('SELECT id, fullname, password FROM providers WHERE email=?');
+        $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        if ($result->num_rows == 1) {
+        if ($result->num_rows === 1) {
             $row = $result->fetch_assoc();
-
             if (password_verify($password, $row['password'])) {
-
-                $_SESSION['provider_id']   = $row['id'];
+                $_SESSION['provider_id'] = $row['id'];
                 $_SESSION['provider_name'] = $row['fullname'];
-
-                header("Location: provider-dashboard.php");
-                exit();
-            } else {
-                $error = "Incorrect password!";
+                header('Location: provider-dashboard.php');
+                exit;
             }
+            $error = 'Incorrect password.';
         } else {
-            $error = "No provider found with this email!";
+            $error = 'No provider account found for that email.';
         }
-
         $stmt->close();
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Provider Login</title>
-
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-        }
-
-        /* Navbar */
-        .navbar {
-            background: linear-gradient(135deg, #4b0082, #4caf50);
-            padding: 15px 20px;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin-left: 15px;
-            font-weight: bold;
-        }
-
-        .container {
-            max-width: 400px;
-            margin: 80px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-            color: #4b0082;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(45deg, #4b0082, #4caf50);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        .error {
-            color: red;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider sign in · EduSkill</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/provider.css">
 </head>
 
-<body>
-
-    <div class="navbar">
-        <div><b>Course Platform</b></div>
-        <div>
-            <a href="index.php">Home</a>
-            <a href="provider-login.php">Provider Login</a>
+<body class="provider-auth-body">
+    <div class="provider-auth-back">
+        <a href="index.php">← Provider portal</a>
+        &nbsp;·&nbsp;
+        <a href="../index.php">EduSkill home</a>
+    </div>
+    <div class="provider-auth-panel">
+        <div class="provider-auth-logo">
+            <img src="../image/211.png" alt="EduSkill">
+        </div>
+        <h1>Provider sign in</h1>
+        <p class="provider-auth-kicker">Submit courses for admin review and track approval status.</p>
+        <?php if ($error !== '') : ?>
+            <div class="provider-auth-msg provider-auth-msg--error" role="alert"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
+        <?php endif; ?>
+        <form method="post" autocomplete="on">
+            <input type="email" name="email" placeholder="Email" required autocomplete="username">
+            <input type="password" name="password" placeholder="Password" required autocomplete="current-password">
+            <button type="submit">Sign in</button>
+        </form>
+        <div class="provider-auth-foot">
+            New instructor? <a href="provider-register.php">Create a provider account</a>
         </div>
     </div>
-
-    <div class="container">
-        <h2>Provider Login</h2>
-
-        <?php if ($error) echo "<p class='error'>$error</p>"; ?>
-
-        <form method="POST">
-            <input type="email" name="email" placeholder="Email Address" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-
-    </div>
-
 </body>
 
 </html>
