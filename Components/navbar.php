@@ -11,7 +11,7 @@ $nav = $nav_active ?? '';
             <span class="visually-hidden">EduSkill</span>
         </a>
         <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
-            ☰
+            <span class="nav-toggle-icon" aria-hidden="true"></span>
         </button>
         <nav id="primary-nav" class="nav-menu" data-nav-menu aria-label="Primary">
             <a href="<?php echo htmlspecialchars($ROOT); ?>index.php" <?php echo $nav === 'home' ? 'aria-current="page"' : ''; ?>>Home</a>

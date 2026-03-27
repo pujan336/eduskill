@@ -27,6 +27,11 @@ require_once __DIR__ . '/Components/navbar.php';
             }
             ?>
         </div>
+        <div class="hero-fx" aria-hidden="true">
+            <div class="hero-orb hero-orb--1"></div>
+            <div class="hero-orb hero-orb--2"></div>
+            <div class="hero-orb hero-orb--3"></div>
+        </div>
         <div class="hero-inner">
             <span class="hero-badge">Learn at your pace</span>
             <h1>Upgrade your skills with structured, mentor-backed courses</h1>
@@ -71,7 +76,7 @@ require_once __DIR__ . '/Components/navbar.php';
         </div>
     </section>
 
-    <section class="section container" aria-labelledby="tools-heading">
+    <section class="section section--soft container" aria-labelledby="tools-heading">
         <div class="section-head">
             <p class="section-kicker">Platform</p>
             <h2 class="section-title" id="tools-heading">Built-in learning tools</h2>
@@ -94,7 +99,7 @@ require_once __DIR__ . '/Components/navbar.php';
     </section>
 
     <section class="section container split-about" aria-labelledby="about-snippet-heading">
-        <img src="<?php echo htmlspecialchars($ROOT); ?>image/image1.jpg" alt="Students collaborating">
+        <img class="polished-media" src="<?php echo htmlspecialchars($ROOT); ?>image/image1.jpg" alt="Students collaborating">
         <div>
             <h2 id="about-snippet-heading">Why learners choose EduSkill</h2>
             <ul>

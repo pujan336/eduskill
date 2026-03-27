@@ -8,19 +8,20 @@
     justify-content: center;
     padding: 2rem 1rem;
     background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(234, 88, 12, 0.25), transparent),
-        radial-gradient(800px 400px at 100% 0%, rgba(15, 118, 110, 0.2), transparent),
-        #0b1220;
+        radial-gradient(900px 520px at 12% -12%, rgba(234, 88, 12, 0.32), transparent 55%),
+        radial-gradient(720px 440px at 102% 8%, rgba(13, 148, 136, 0.22), transparent 50%),
+        radial-gradient(500px 400px at 50% 108%, rgba(99, 102, 241, 0.14), transparent 45%),
+        linear-gradient(165deg, #05080f 0%, #0b1220 50%, #080c14 100%);
 }
 
 .auth-panel {
     width: 100%;
     max-width: 400px;
-    background: #fff;
-    border-radius: var(--radius);
-    padding: 2rem 1.75rem;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #ffffff 100%);
+    border-radius: var(--radius-lg);
+    padding: 2.15rem 1.85rem;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+    border: 1px solid rgba(226, 232, 240, 0.95);
 }
 
 .auth-panel .logo {
@@ -58,21 +59,23 @@
 
 .auth-panel button[type="submit"] {
     width: 100%;
-    padding: 0.75rem;
+    padding: 0.78rem;
     margin-top: 0.25rem;
     border: none;
     border-radius: 999px;
-    background: var(--brand);
+    background: linear-gradient(135deg, var(--brand-bright) 0%, var(--brand) 45%, var(--brand-hover) 100%);
     color: #fff;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
     font-family: var(--font);
-    transition: background 0.2s;
+    transition: filter 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 26px rgba(234, 88, 12, 0.35);
 }
 
 .auth-panel button[type="submit"]:hover {
-    background: var(--brand-hover);
+    filter: brightness(1.05);
+    box-shadow: 0 12px 34px rgba(234, 88, 12, 0.42);
 }
 
 .auth-back {
@@ -142,23 +145,25 @@
 }
 
 .auth-modal-box {
-    background: #fff;
-    padding: 1.75rem;
-    border-radius: var(--radius);
+    background: linear-gradient(180deg, #ffffff, #f8fafc);
+    padding: 1.85rem;
+    border-radius: var(--radius-lg);
     max-width: 400px;
     width: 100%;
     text-align: center;
-    box-shadow: var(--shadow);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(226, 232, 240, 0.95);
 }
 
 .auth-modal-box button {
     margin-top: 1rem;
-    padding: 0.55rem 1.25rem;
+    padding: 0.58rem 1.35rem;
     border: none;
     border-radius: 999px;
-    background: var(--brand);
+    background: linear-gradient(135deg, var(--brand-bright), var(--brand));
     color: #fff;
     font-weight: 600;
     cursor: pointer;
     font-family: var(--font);
+    box-shadow: 0 8px 24px rgba(234, 88, 12, 0.35);
 }
