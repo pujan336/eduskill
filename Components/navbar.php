@@ -1,95 +1,29 @@
-<!-- Components/navbar.php -->
-<nav class="navigation">
-    <div class="logo">
-        <img src="image/211.png" alt="Website Logo">
+<?php
+if (!isset($ROOT)) {
+    require_once __DIR__ . '/paths.php';
+}
+$nav = $nav_active ?? '';
+?>
+<header class="site-header">
+    <div class="nav-inner">
+        <a class="site-logo" href="<?php echo htmlspecialchars($ROOT); ?>index.php">
+            <img src="<?php echo htmlspecialchars($ROOT); ?>image/211.png" alt="EduSkill">
+            <span class="visually-hidden">EduSkill</span>
+        </a>
+        <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+            ☰
+        </button>
+        <nav id="primary-nav" class="nav-menu" data-nav-menu aria-label="Primary">
+            <a href="<?php echo htmlspecialchars($ROOT); ?>index.php" <?php echo $nav === 'home' ? 'aria-current="page"' : ''; ?>>Home</a>
+            <a href="<?php echo htmlspecialchars($ROOT); ?>Pages/courses.php" <?php echo $nav === 'courses' ? 'aria-current="page"' : ''; ?>>Courses</a>
+            <a href="<?php echo htmlspecialchars($ROOT); ?>Pages/about.php" <?php echo $nav === 'about' ? 'aria-current="page"' : ''; ?>>About</a>
+            <a href="<?php echo htmlspecialchars($ROOT); ?>Pages/contact.php" <?php echo $nav === 'contact' ? 'aria-current="page"' : ''; ?>>Contact</a>
+            <a href="<?php echo htmlspecialchars($ROOT); ?>Pages/faq.php" <?php echo $nav === 'faq' ? 'aria-current="page"' : ''; ?>>FAQ</a>
+            <div class="nav-actions">
+                <a class="btn btn-ghost" href="<?php echo htmlspecialchars($ROOT); ?>courses-provisers/provider-login.php">Teach</a>
+                <a class="btn btn-primary" href="<?php echo htmlspecialchars($ROOT); ?>registration-system/login.php">Log in</a>
+                <a class="btn btn-secondary" href="<?php echo htmlspecialchars($ROOT); ?>registration-system/register.php">Sign up</a>
+            </div>
+        </nav>
     </div>
-
-    <div class="bar">
-        <a href="index.php">Home</a>
-        <a href="../Pages/contain.php">Content</a>
-        <a href="#">Image</a>
-        <a href="../Pages/about.php">About</a>
-    </div>
-
-    <div class="loginButton">
-        <!-- Login and Signup buttons -->
-        <a href="registration-system/login.php">Login</a>
-        <a href="registration-system/register.php">Sign Up</a>
-    </div>
-</nav>
-
-<style>
-    /* NAVIGATION BAR */
-    .navigation {
-        height: 70px;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #1e2a38;
-        padding: 0 40px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    /* LOGO */
-    .logo img {
-        width: 120px;
-    }
-
-    /* NAV LINKS */
-    .bar a {
-        color: #ffffff;
-        margin: 0 18px;
-        text-decoration: none;
-        font-size: 16px;
-        position: relative;
-    }
-
-    /* HOVER UNDERLINE EFFECT */
-    .bar a::after {
-        content: "";
-        position: absolute;
-        width: 0%;
-        height: 2px;
-        background: #ff7a18;
-        left: 0;
-        bottom: -5px;
-        transition: 0.3s;
-    }
-
-    .bar a:hover::after {
-        width: 100%;
-    }
-
-    /* LOGIN AND SIGNUP BUTTONS */
-    .loginButton a {
-        padding: 8px 18px;
-        margin-left: 10px;
-        border-radius: 4px;
-        font-size: 14px;
-        text-decoration: none;
-        transition: 0.3s;
-    }
-
-    /* LOGIN BUTTON */
-    .loginButton a.login {
-        background: transparent;
-        color: white;
-        border: 1px solid white;
-    }
-
-    .loginButton a.login:hover {
-        background: white;
-        color: #1e2a38;
-    }
-
-    /* SIGNUP BUTTON */
-    .loginButton a.signup {
-        background: #ff7a18;
-        color: white;
-    }
-
-    .loginButton a.signup:hover {
-        background: #e56710;
-    }
-</style>
+</header>
