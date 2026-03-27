@@ -1,15 +1,17 @@
 <?php
 session_start();
-include "db.php";
+include 'db.php';
 
-$error = "";
+$error = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
     $result = mysqli_query($conn, "SELECT * FROM admins WHERE email='$email'");
-    if (!$result) die("Query failed: " . mysqli_error($conn));
+    if (!$result) {
+        die('Query failed: ' . mysqli_error($conn));
+    }
 
     $admin = mysqli_fetch_assoc($result);
 
@@ -17,90 +19,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $admin['password'])) {
             $_SESSION['admin_id'] = $admin['id'];
             $_SESSION['admin_name'] = $admin['fullname'];
-            header("Location: admin-dashboard.php");
+            header('Location: admin-dashboard.php');
             exit();
-        } else {
-            $error = "Invalid password!";
         }
+        $error = 'Invalid password.';
     } else {
-        $error = "Admin not found!";
+        $error = 'Admin account not found.';
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - EduSkill</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial;
-            background: linear-gradient(135deg, #6a0dad, #28a745);
-            margin: 0;
-        }
-
-        .login-container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            width: 360px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-
-        .login-container h2 {
-            margin-bottom: 20px;
-        }
-
-        .login-container input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        .login-container button {
-            width: 100%;
-            padding: 12px;
-            background: #6a0dad;
-            border: none;
-            color: white;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .login-container button:hover {
-            background: #4b0082;
-        }
-
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>Admin login · EduSkill</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 
-<body>
-    <div class="login-container">
-        <h2>Admin Login</h2>
-        <?php if (!empty($error)) echo "<div class='error'>$error</div>"; ?>
-        <form method="POST">
-            <input type="email" name="email" placeholder="Enter email" required>
-            <input type="password" name="password" placeholder="Enter password" required>
-            <button type="submit">Login</button>
+<body class="admin-auth-page">
+    <div class="admin-auth-back">
+        <a href="../index.php">← Back to site</a>
+    </div>
+    <div class="admin-auth-panel">
+        <h1>Admin login</h1>
+        <p class="admin-auth-kicker">EduSkill control center</p>
+        <?php if ($error !== '') : ?>
+            <div class="admin-auth-msg admin-auth-msg--error" role="alert"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
+        <?php endif; ?>
+        <form method="post" autocomplete="on">
+            <input type="email" name="email" placeholder="Email" required autocomplete="username">
+            <input type="password" name="password" placeholder="Password" required autocomplete="current-password">
+            <button type="submit">Sign in</button>
         </form>
+        <div class="admin-auth-links">
+            <a href="admin_registration.php">Register new admin</a>
+        </div>
     </div>
 </body>
 
