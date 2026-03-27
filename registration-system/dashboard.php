@@ -33,6 +33,8 @@ $student_nav = 'dashboard';
 include '_student_layout_top.php';
 ?>
 
+<?php include '_student_quick_links.php'; ?>
+
 <section class="student-welcome">
     <h2>Welcome back, <?php echo htmlspecialchars((string) $student_profile['fullname'], ENT_QUOTES, 'UTF-8'); ?></h2>
     <p>Pick up where you left off. Your enrolled courses and new recommendations are below.</p>

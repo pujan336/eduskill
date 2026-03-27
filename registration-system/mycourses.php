@@ -31,6 +31,8 @@ $student_nav = 'courses';
 include '_student_layout_top.php';
 ?>
 
+<?php include '_student_quick_links.php'; ?>
+
 <p style="margin:0 0 1.25rem;color:var(--ink-muted);max-width:42rem;line-height:1.55;">Everything your administrator has enrolled you in. Status reflects the provider course record.</p>
 
 <?php if (count($assigned_courses) > 0) : ?>

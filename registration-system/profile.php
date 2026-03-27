@@ -10,6 +10,8 @@ $created = $student_profile['created_at'] ?? null;
 include '_student_layout_top.php';
 ?>
 
+<?php include '_student_quick_links.php'; ?>
+
 <div class="student-card">
     <h2 class="student-section-title">Your account <span>Details</span></h2>
     <p style="margin:0 0 1.25rem;color:var(--ink-muted);line-height:1.55;">This information is stored securely. To change your email or name, contact your administrator.</p>

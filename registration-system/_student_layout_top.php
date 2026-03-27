@@ -31,8 +31,9 @@ $student_nav = $student_nav ?? '';
                 <a href="profile.php" class="<?php echo $student_nav === 'profile' ? 'is-active' : ''; ?>">Profile</a>
             </nav>
             <div class="student-sidebar-foot">
+                <a class="student-nav-secondary" href="index.php">Portal home</a>
                 <a class="student-nav-secondary" href="../Pages/courses.php">Browse catalog</a>
-                <a class="student-nav-secondary" href="../index.php">← Home</a>
+                <a class="student-nav-secondary" href="../index.php">Marketing site</a>
                 <a class="student-nav-secondary" href="logout.php">Log out</a>
             </div>
         </aside>
